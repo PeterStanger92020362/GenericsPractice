@@ -38,9 +38,31 @@ public class GenericsChallenge {
     
     
     
-    public static <E> ArrayList<E> removeDuplicates( ArrayList<E> list ){
+    public static <E extends Comparable<E>> ArrayList<E> removeDuplicates( ArrayList<E> list ){
         
         ArrayList<E> noDuplicates = new ArrayList<>();
+        
+        noDuplicates.add(list.get(0));  // get first element of list to start off with
+        
+        boolean foundDuplicate = false;
+        if(list.size()==0){
+            return list;
+        }
+        
+        
+        for (int i = 1; i< list.size(); i++){
+            for (int j=0; j< noDuplicates.size(); j++){
+                if( list.get(i).compareTo(noDuplicates.get(j)) == 0 ){
+                    foundDuplicate = true;
+                    break;
+                }
+            }
+            if(foundDuplicate != true){
+                noDuplicates.add(list.get(i));
+            }
+            foundDuplicate = false;
+            
+        };
         
         /*  Removes any values that are duplicated 
         
